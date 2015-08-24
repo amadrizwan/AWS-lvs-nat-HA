@@ -48,17 +48,17 @@ Wait_for_Instance_Start=300
 # }
 
 # Get LB1 instance's IP
-LB1_IP=`/opt/aws/bin/ec2-describe-instances $LB1_ID -U $EC2_URL | grep PRIVATEIPADDRESS -m 1 | awk '{print $2;}'`
+LB1_IP=`/opt/aws/bin/ec2-describe-instances $LB1_ID -U $EC2_URL | grep PRIVATEIPADDRESS -m 1 | awk -F$'\t' '{print $2;}'`
 # Get LB2 instance's IP
-LB2_IP=`/opt/aws/bin/ec2-describe-instances $LB2_ID -U $EC2_URL | grep PRIVATEIPADDRESS -m 1 | awk '{print $2;}'`
+LB2_IP=`/opt/aws/bin/ec2-describe-instances $LB2_ID -U $EC2_URL | grep PRIVATEIPADDRESS -m 1 | awk -F$'\t' '{print $2;}'`
 
 # Get ENI ID of LB1 eth0
-ENI_LB1=`/opt/aws/bin/ec2-describe-instances $LB1_ID -U $EC2_URL | grep NIC -m 1 | awk  '{print $2;}'`
+ENI_LB1=`/opt/aws/bin/ec2-describe-instances $LB1_ID -U $EC2_URL | grep NIC -m 1 | awk -F$'\t' '{print $2;}'`
 # Get ENI ID of LB2 eth0
-ENI_LB2=`/opt/aws/bin/ec2-describe-instances $LB2_ID -U $EC2_URL | grep NIC -m 1 | awk  '{print $2;}'`
+ENI_LB2=`/opt/aws/bin/ec2-describe-instances $LB2_ID -U $EC2_URL | grep NIC -m 1 | awk -F$'\t' '{print $2;}'`
 
 # Get alloc ID for EIP
-#EIP_ALLOC=`/opt/aws/bin/ec2-describe-addresses -U $EC2_URL | grep $EIP | awk  '{print $5;}'`
+#EIP_ALLOC=`/opt/aws/bin/ec2-describe-addresses -U $EC2_URL | grep $EIP | awk -F$'\t' '{print $5;}'`
 
 ########################  Starting Script #######################
 
@@ -97,7 +97,7 @@ while [ . ]; do
         WHO_HAS_RT="LB2"
  fi
  # Check LB1 state to see if we should stop it or start it again
- LB1_STATE=`/opt/aws/bin/ec2-describe-instances $LB1_ID -U $EC2_URL | grep INSTANCE | awk '{print $5;}'`
+ LB1_STATE=`/opt/aws/bin/ec2-describe-instances $LB1_ID -U $EC2_URL | grep INSTANCE | awk -F$'\t' '{print $6;}'`
  if [ "$LB1_STATE" == "stopped" ]; then
  echo `date` "-- LB1 instance stopped, starting it back up"
  /opt/aws/bin/ec2-start-instances $LB1_ID -U $EC2_URL
@@ -133,7 +133,7 @@ fi
         WHO_HAS_RT="LB1"
  fi
  # Check LB2 state to see if we should stop it or start it again
- LB2_STATE=`/opt/aws/bin/ec2-describe-instances $LB2_ID -U $EC2_URL | grep INSTANCE | awk '{print $5;}'`
+ LB2_STATE=`/opt/aws/bin/ec2-describe-instances $LB2_ID -U $EC2_URL | grep INSTANCE | awk -F$'\t' '{print $6;}'`
  if [ "$LB2_STATE" == "stopped" ]; then
  echo `date` "-- LB2 instance stopped, starting it back up"
  /opt/aws/bin/ec2-start-instances $LB2_ID -U $EC2_URL
