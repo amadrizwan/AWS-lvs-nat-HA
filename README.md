@@ -9,11 +9,11 @@ Both LVS instances should be in the same Availability Zone. That is because a se
 
 The secondary IP address can be configured on both LVS instances at the same time.
 
-CENTOS:
-vi /etc/sysconfig/network-scripts/ifcfg-eth0:1
-DEVICE=eth0:1
-BOOTPROTO=static
-ONBOOT=yes
-IPADDR=172.31.50.100
-NETMASK=255.255.255.0
+CENTOS/RedHat: <br />
+vi /etc/sysconfig/network-scripts/ifcfg-eth0:1 <br />
+DEVICE=eth0:1 <br />
+BOOTPROTO=static <br />
+ONBOOT=yes <br />
+IPADDR=172.31.xxx.xxx <br />
+NETMASK=xxx.xxx.xxx.xxx <br />
 ARPCHECK=no
