@@ -18,4 +18,8 @@ NETMASK=xxx.xxx.xxx.xxx <br />
 ARPCHECK=no
 
 
-upon failover, the healthy instance takes the secondary private IP address (AWS API)
+Upon failover, the healthy instance takes the secondary private IP address (AWS API ec2-assign-private-ip-addresses) and the default route in the real-servers routing table is changed to healthy LVS instance.
+
+EIP migration can be added if required.
+
+
