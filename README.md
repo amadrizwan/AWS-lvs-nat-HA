@@ -2,8 +2,7 @@
 
 a script that runs on monitor instance and provide high availability to LVS and NAT instances.
 
-Limitations:
-
+Limitations: <br />
 Both LVS instances should be in the same Availability Zone. That is because a secondary IP address can only be reassociated within the same subnet.
 
 
@@ -17,3 +16,6 @@ ONBOOT=yes <br />
 IPADDR=172.31.xxx.xxx <br />
 NETMASK=xxx.xxx.xxx.xxx <br />
 ARPCHECK=no
+
+
+upon failover, the healthy instance takes the secondary private IP address (AWS API)
